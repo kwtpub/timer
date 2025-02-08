@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html {
+        background-color: #295464;
+        background-size: cover;
+                background-position: center;
+        background-image: url(https://optim.tildacdn.com/tild3832-6637-4561-a633-383461373664/-/format/webp/beautiful-shot-snowy.jpg);
+    }
+            /* Сброс стилей */
+            body, html {
+                margin: 0;
+                padding: 0;
+                height: 100%;
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+                overflow: hidden;
+            }
+    
+            /* Фоновое изображение */
+            .background {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: -1;
+            }
+    
+            /* Контейнер для таймера */
+            .container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+            }
+    
+            /* Стили для таймера */
+            .timer {
+                background: rgba(255, 255, 255, 0.2); /* Прозрачный белый фон */
+                backdrop-filter: blur(10px); /* Размытие фона внутри контейнера */
+                border-radius: 20px;
+                padding: 40px;
+                box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+                border: 1px solid rgba(255, 255, 255, 0.3);
+                text-align: center;
+            }
+    
+            /* Стили для текста таймера */
+            #time {
+                font-size: 3rem;
+                color: white;
+                font-weight: bold;
+                text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            }
+        </style>
+</head>
+<body>
+    <!-- Фоновое изображение -->
+    <div class="background"></div>
+
+    <!-- Контейнер с таймером -->
+    <div class="container">
+        <div class="timer">
+            <div id="time">00:00:00:00</div>
+        </div>
+    </div>
+
+    <script>
+        // Устанавливаем дату окончания (1 сентября 2025 года)
+        const endDate = new Date('September 1, 2025 00:00:00').getTime();
+
+        function updateTimer() {
+            const now = new Date().getTime();
+            const timeLeft = endDate - now;
+
+            // Если время вышло
+            if (timeLeft <= 0) {
+                document.getElementById('time').textContent = '00:00:00:00';
+                return;
+            }
+
+            // Вычисляем дни, часы, минуты и секунды
+            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+            // Форматируем время
+            document.getElementById('time').textContent =
+                `${String(days).padStart(2, '0')}:${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        }
+
+        // Обновляем таймер каждую секунду
+        setInterval(updateTimer, 1000);
+        updateTimer(); // Инициализация сразу
+    </script>
+</body>
+</html>
